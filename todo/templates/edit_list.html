@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTaskModalLabel">Edit To Do List</h5>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ list_form.title.label_tag }}
+                {{ list_form.title }}
+              </div>
+              <div class="form-group">
+                {{ list_form.color.label_tag }}
+                {{ list_form.color }}
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

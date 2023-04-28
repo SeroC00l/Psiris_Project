@@ -1,0 +1,97 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<div class="container">  
+  
+  <h1>{{ todo_list.title }}</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Task</th>
+        <th scope="col">Description</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Completed</th>
+        <th scope="col" >Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for task in todo_items %}
+      <tr class="{% if task.priority == 1 %}bg-success{% endif %}{% if task.priority == 2 %}bg-warning{% endif %}{% if task.priority == 3 %}bg-danger{% endif %} text-gray-900" >
+        <th scope="row">{{ forloop.counter }}</th>
+        <td> {{ task.title }} </td>
+        {% if task.description %}
+        <td> {{ task.description }} </td>
+        {% endif %}
+        {% if task.due_date %}
+        <td>{{ task.due_date }}</td>
+        {% endif %}
+        {% if task.priority == 1 %}
+        <td>Low</td>
+        {% endif %}
+        {% if task.priority == 2 %}
+        <td>Medium</td>
+        {% endif %}
+        {% if task.priority == 3 %}
+        <td>High</td>
+        {% endif %}
+        {% if task.is_completed == False %}
+        <td><div class="d-flex"><input type="checkbox" class="mx-auto" /></div></td>
+        {% else %}
+        <td>{{ task.is_completed }} </td>
+        {% endif %}
+        <td><a class="edit-task btn" href="/home/{{ todo_list.id }}/edit_task/{{ task.id }}">Edit</a> | <a class="delete-task btn" href="/home/{{ todo_list.id }}/delete_task/{{ task.id }}/">Delete</a></td>
+      </tr>
+    {% empty %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>No tasks Yet</td>
+    </tr>
+    {% endfor %}
+    </tr>
+    </tbody>
+  </table>
+  <a
+  type="button"
+  style= "background": "white" 
+  class="btn btn-primary mt-2"
+  data-bs-toggle="modal"
+  data-bs-target="#addTaskModal"
+  >
+  Add Task
+  </a>
+
+  <!-- Add Task Modal -->
+  <div
+    class="modal fade"
+    id="addTaskModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="addTaskModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addTaskModalLabel">Add Task</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+            {% csrf_token %}
+            {{ task_form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Task</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Edit Task Modal-->
+
+  {% endblock %}
