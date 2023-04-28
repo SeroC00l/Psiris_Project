@@ -19,10 +19,12 @@ Templates: The application's templates define the structure and appearance of th
 URLs: The application's URLs map HTTP requests to views. The URLs are defined in the urls.py file.
 The project also includes a virtual environment for Python dependencies, which can be installed using the requirements.txt file.
 
-Overall, this project provides a simple and practical example of how to build a web application with Django, including user authentication, data modeling, and view rendering.
-
 Installation
+
 Clone the repository: git clone https://github.com/SeroC00l/Psiris_Project
-Create and activate a virtual environment: python -m venv and source venv/bin/activate (for Unix-based systems) or venv\Scripts\activate (for Windows)
+
+Activate a virtual environment: navigate to the root directory of the repository and run in the terminal: venv\Scripts\activate
+
 Install the required packages: pip install -r requirements.txt
+
 Run the application: python manage.py runserver
